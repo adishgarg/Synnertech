@@ -152,7 +152,7 @@ export default function ProblemAllocator() {
             </button>
           </>
         ) : (
-          <CardSpotlight className="text-center">
+          <div className="text-center border-2 rounded-lg p-4">
             <div className="z-[1000]">
               <h2 className="text-2xl font-bold mb-4 text-white">
                 Allocated Problem
@@ -173,7 +173,7 @@ export default function ProblemAllocator() {
                 </ul>
                 <a
                   href={allocatedProblem.link}
-                  className="text-blue-500 font-medium underline hover:text-blue-700"
+                  className="text-blue-500 font-medium underline hover:text-blue-700 z-[1000000000]"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -184,7 +184,7 @@ export default function ProblemAllocator() {
                 (Your problem statement is saved and won't change.)
               </p>
             </div>
-          </CardSpotlight>
+          </div>
         )}
       </div>
     </div>

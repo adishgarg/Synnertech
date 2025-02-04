@@ -27,7 +27,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <nav className="flex justify-between p-4">
+          <img src="chitkara.png" alt=""  className="h-16"/>
+          <img src="cn logo.png" alt="" className="h-16"/>
+        </nav>
         {children}
+
       </body>
     </html>
   );
