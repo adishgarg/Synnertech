@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { features } from "process";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAQyjXEzfKO-LHHwP0XmeX5YGuzjscD7c0",
@@ -90,9 +90,9 @@ const problemStatements = [
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
-      <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-center">Problem Allocator</h1>
+    <div className="flex flex-col items-center justify-center  p-4 ">
+      <div className="w-full max-w-md p-4 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4 text-center text-white">Problem Allocator</h1>
         {!allocatedProblem ? (
           <>
             <label htmlFor="teamId" className="block text-sm font-medium text-gray-700 mb-2">
@@ -115,14 +115,15 @@ const problemStatements = [
             </button>
           </>
         ) : (
-            <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">Allocated Problem</h2>
-            <div className="text-gray-700 mb-6">
+            <CardSpotlight className="text-center">
+                <div className="z-[1000]">
+            <h2 className="text-2xl font-bold mb-4 text-white">Allocated Problem</h2>
+            <div className="text-white mb-6">
               <h3 className="text-xl font-semibold text-blue-600 mb-2">{allocatedProblem.heading}</h3>
               <p className="text-base leading-relaxed mb-4">{allocatedProblem.content}</p>
               <ul className="list-disc list-inside text-left pl-4 mb-4">
                 {allocatedProblem.features?.map((feature, index) => (
-                  <li key={index} className="text-gray-600">{feature}</li>
+                  <li key={index} className="text-white">{feature}</li>
                 ))}
               </ul>
               <a
@@ -135,7 +136,8 @@ const problemStatements = [
               </a>
             </div>
             <p className="text-sm text-gray-500">(Your problem statement is saved and won't change.)</p>
-          </div>
+            </div>
+          </CardSpotlight>
         )}
       </div>
     </div>
