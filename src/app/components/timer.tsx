@@ -1,7 +1,6 @@
 'use client'
 
 import { Cover } from "@/components/ui/cover";
-import { div } from "framer-motion/client";
 import React from "react";
 import { useEffect, useState } from "react";
 
