@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Cover } from "@/components/ui/cover";
 
-const END_TIME = new Date(2025, 1, 5, 14, 0, 0).getTime(); 
+const END_TIME = new Date(2025, 1, 5, 14, 30, 0).getTime(); 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
@@ -25,7 +25,7 @@ export default function CountdownTimer() {
         <h1 className="text-2xl text-white md:text-4xl lg:text-5xl font-bold mb-6 text-center">
           Timer
         </h1>
-        <div className="text-2xl md:text-7xl lg:text-8xl font-mono tracking-wide text-white">
+        <div className={`text-2xl md:text-7xl lg:text-8xl font-mono tracking-wide ${timeLeft <= 30 ? 'text-red-500' : 'text-orange-500'}`}>
           {String(Math.floor(timeLeft / 3600)).padStart(2, "0")}:
           {String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0")}:
           {String(timeLeft % 60).padStart(2, "0")}
