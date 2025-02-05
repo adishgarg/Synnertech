@@ -1,32 +1,36 @@
-'use client'
+"use client";
 
-import { Cover } from "@/components/ui/cover";
-import React from "react";
 import { useEffect, useState } from "react";
+import { Cover } from "@/components/ui/cover";
 
-export default function Timer() {
-    const [time, setTime] = useState<number>(10);
-    useEffect(() => {
-        let timer = setInterval(() => {
-          setTime((time) => {
-            if (time === 0 || time === null) {
-              clearInterval(timer);
-              return 0;
-            } else return time - 1;
-          });
-        }, 1000);
-      }, []);
+const END_TIME = new Date(2025, 1, 5, 14, 0, 0).getTime(); 
+export default function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const currentTime = Date.now();
+      const remainingTime = Math.max(0, Math.floor((END_TIME - currentTime) / 1000));
+      setTimeLeft(remainingTime);
+    };
+
+    const interval = setInterval(calculateTimeLeft, 1000);
+    calculateTimeLeft(); 
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="bg-black h-100 w-100">
-    <div className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-      <Cover><p className="text-white">
-  Time left: {String(Math.floor(time / 3600)).padStart(2, '0')}:
-  {String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:
-  {String(time % 60).padStart(2, '0')}
-</p>
-
-</Cover>
-    </div>
+    <div className="flex flex-row items-center justify-center bg-black text-white p-4">
+      <Cover>
+        <h1 className="text-2xl text-white md:text-4xl lg:text-5xl font-bold mb-6 text-center">
+          Timer
+        </h1>
+        <div className="text-2xl md:text-7xl lg:text-8xl font-mono tracking-wide text-white">
+          {String(Math.floor(timeLeft / 3600)).padStart(2, "0")}:
+          {String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0")}:
+          {String(timeLeft % 60).padStart(2, "0")}
+        </div>
+      </Cover>
     </div>
   );
 }
