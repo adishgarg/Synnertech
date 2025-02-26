@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Cover } from "@/components/ui/cover";
 
-const END_TIME = new Date(2025, 1, 5, 14, 0, 0).getTime(); 
+const END_TIME = new Date(2025, 1, 27, 14, 0, 0).getTime(); 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState<number>(0);
 

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQyjXEzfKO-LHHwP0XmeX5YGuzjscD7c0",
@@ -20,56 +19,29 @@ const db = getFirestore(app);
 
 const problemStatements = [
   {
-    heading: "Alumni Networking Platform",
-    content:
-      "Every expert was once a novice, but not every novice will become an expert. The right mentoring is a unique tool for excelling in a field. As an educational institution, develop a platform to strengthen the alumni-student bond and help newcomers in both professional and personal fields. Recommended Features: Easy connecting features, Categorized approach, Campus life management section, Mental health management.",
-    hyperlinkName: "Design Templates",
-    link: "https://www.figma.com/design/msZVWACKOitLFvo4nAk71O/SYNER-TECH-Final-templates?node-id=0-1&p=f&t=sF6HaOaC4pGXzLND-0",
-    features: [
-      "Easy connecting features",
-      "Categorized approach",
-      "Campus life management section",
-      "Mental health management",
-    ],
+    heading: "Auction platform",
+    hyperlinkName: "Auction platform",
+    link: "https://github.com/CodingNinjasCUIET/RapidCode-Auction.git",
   },
   {
-    heading: "Online Education Platform",
-    content:
-      "Due to post covid effects on study you being an educational institute finds a need to develop an online platform for education delivery aiming to provide an innovative experience to students and track their progress.",
-    hyperlinkName: "Design Templates",
-    link: "https://www.figma.com/design/msZVWACKOitLFvo4nAk71O/SYNER-TECH-Final-templates?node-id=1-2&p=f&t=sF6HaOaC4pGXzLND-0",
-    features: [
-      "Interactive elements",
-      "Dedicated profile for progress tracking",
-      "Calendar-oriented planning",
-      "Burden free approach",
-    ],
+    heading: "Weather Forcast",
+    hyperlinkName: "Weather Forcast",
+    link: "https://github.com/CodingNinjasCUIET/RapidCode-WeatherForecast.git",
   },
   {
-    heading: "Financial Literacy Scale",
-    content:
-      "Financial literacy is one of the most valuable skills for individuals in every era. The need for a constant monitoring system and timely feedback is key to achieving literacy in any field. As a financial consulting firm, develop a tool encompassing all major aspects.",
-    hyperlinkName: "Design Templates",
-    link: "https://www.figma.com/design/msZVWACKOitLFvo4nAk71O/SYNER-TECH-Final-templates?node-id=1-480&p=f&t=sF6HaOaC4pGXzLND-0",
-    features: [
-      "Literacy scale for gauging momentary levels of literacy",
-      "Content curation tool",
-      "Feedback system for accurate diagnosis and solution of problems",
-      "News and industry tracker",
-    ],
+    heading: "Traveling website",
+    hyperlinkName: "Traveling website",
+    link: "https://github.com/CodingNinjasCUIET/RapidCode-TravelingWebsite.git",
   },
   {
-    heading: "Cloud Gaming Service",
-    content:
-      "Being an aspiring gamer and restricted by personal computer hardware is one of the worst nightmares. To tackle this problem, develop a cloud gaming service that allows users to run high-end games and manage different game profiles for a better experience.",
-    hyperlinkName: "Design Templates",
-    link: "https://www.figma.com/design/msZVWACKOitLFvo4nAk71O/SYNER-TECH-Final-templates?node-id=1-481&p=f&t=sF6HaOaC4pGXzLND-0",
-    features: [
-      "Dedicated game information",
-      "Advanced Game Management",
-      "Game Recommendations",
-      "Game Community",
-    ],
+    heading: "Quiz Platfrom",
+    hyperlinkName: "Quiz Platfrom",
+    link: "https://github.com/CodingNinjasCUIET/RapidCode-Quiz.git",
+  },
+  {
+    heading: "Car Store",
+    hyperlinkName: "Car Store",
+    link: "https://github.com/CodingNinjasCUIET/RapidCode-CarStore.git",
   },
 ];
 
@@ -95,16 +67,16 @@ export default function ProblemAllocator() {
 
   const handleAllocateProblem = async () => {
     if (!teamId) return;
-
     if (allocatedProblem) return;
 
-    const randomProblem =
-      problemStatements[Math.floor(Math.random() * problemStatements.length)];
-    setAllocatedProblem(randomProblem);
+    const teamNumber = parseInt(teamId, 10);
+    const index = teamNumber % problemStatements.length;
+    const fixedProblem = problemStatements[index];
+    setAllocatedProblem(fixedProblem);
 
     try {
       await setDoc(doc(db, "allocations", teamId), {
-        problemStatement: randomProblem,
+        problemStatement: fixedProblem,
       });
     } catch (error) {
       console.error("Error saving allocation: ", error);
@@ -116,7 +88,7 @@ export default function ProblemAllocator() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  p-4 ">
+    <div className="flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md p-4 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center text-white">
           Problem Allocator
@@ -142,7 +114,6 @@ export default function ProblemAllocator() {
                 input.value = input.value.replace(/[^0-9]/g, "");
               }}
             />
-
             <button
               className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
               onClick={handleAllocateProblem}
@@ -153,37 +124,20 @@ export default function ProblemAllocator() {
           </>
         ) : (
           <div className="text-center border-2 rounded-lg p-4">
-            <div className="z-[1000]">
-              <h2 className="text-2xl font-bold mb-4 text-white">
-                Allocated Problem
-              </h2>
-              <div className="text-white mb-6">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  {allocatedProblem.heading}
-                </h3>
-                <p className="text-base leading-relaxed mb-4">
-                  {allocatedProblem.content}
-                </p>
-                <ul className="list-disc list-inside text-left pl-4 mb-4">
-                  {allocatedProblem.features?.map((feature, index) => (
-                    <li key={index} className="text-white">
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={allocatedProblem.link}
-                  className="text-blue-500 font-medium underline hover:text-blue-700 z-[1000000000]"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {allocatedProblem.hyperlinkName}
-                </a>
-              </div>
-              <p className="text-sm text-gray-500">
-                (Your problem statement is saved and won't change.)
-              </p>
-            </div>
+            <p className="text-white text-xl">
+              {allocatedProblem.heading} -{" "}
+              <a
+                href={allocatedProblem.link}
+                className="text-blue-500 font-medium underline hover:text-blue-700"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {allocatedProblem.hyperlinkName}
+              </a>
+            </p>
+            <p className="text-sm text-gray-500">
+              (Your problem statement is saved and won't change.)
+            </p>
           </div>
         )}
       </div>
