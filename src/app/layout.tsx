@@ -29,8 +29,12 @@ export default function RootLayout({
       >
         <nav className="flex justify-between p-4">
           <img src="chitkara.png" alt=""  className="h-16"/>
+          <p className="text-3xl text-yellow-600 font-extrabold fontface">SYNNERTECH</p>
+          <div className="flex gap-4">
+          <img src="10x.jpg" alt="" className="h-16"/>
           <p className="text-3xl text-green-800 font-extrabold fontface">Rapid Code</p>
           <img src="cn logo.png" alt="" className="h-16"/>
+          </div>
         </nav>
         {children}
 
